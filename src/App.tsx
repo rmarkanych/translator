@@ -1,6 +1,14 @@
+import TranslateForm from "./components/TranslateForm"
+
 const App = () =>{
   return (
-<h1> hello</h1>
+<div > 
+<h1>Translate App</h1>
+<div style={{ display: "flex", justifyContent: "center" }}>
+<TranslateForm />
+</div>
+     
+</div>
   )
 }
 
