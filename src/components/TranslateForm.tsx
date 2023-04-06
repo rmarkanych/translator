@@ -1,15 +1,17 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-import { Audio } from 'react-loader-spinner'
+import { Audio } from "react-loader-spinner";
+import { Input, Button, Text, Box } from "@chakra-ui/react";
 
-function TranslateForm() {
-
+const TranslateForm = () => {
+  
   const [text, setText] = useState<string>("");
   const [translatedText, setTranslatedText] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setText(event.target.value);
-  
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setText(event.target.value);
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -44,31 +46,33 @@ function TranslateForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ display: "flex", gap: '10px' }}>
-        <label htmlFor="text">Enter some text on English</label>
-        <input
+      <div style={{ display: "flex", gap: "10px" }}>
+        <Input
+          placeholder="Enter some text on English"
           type="text"
           id="text"
           name="text"
           value={text}
           onChange={handleInputChange}
         />
-         <button type="submit" disabled={loading || text.trim().length === 0}>
+        <Button
+          type="submit"
+          disabled={loading || text.trim().length === 0}
+          colorScheme="teal"
+        >
           Translate
-        </button>
-     
-       
+        </Button>
       </div>
       {loading ? (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <Box style={{ display: "flex", justifyContent: "center" }}>
           <Audio height="80" width="80" color="green" ariaLabel="loading" />
-        </div>
+        </Box>
       ) : (
         translatedText && (
-          <div style={{ display: "flex", gap: '10px' }} >
-            <p>Translation:</p> 
-            <p>{translatedText}</p>
-          </div>
+          <Box mt="5">
+            <Text fontSize="xl">Translation:</Text>
+            <Text fontSize="xl">{translatedText}</Text>
+          </Box>
         )
       )}
     </form>
