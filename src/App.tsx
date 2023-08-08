@@ -1,5 +1,5 @@
-import TranslateForm from "./components/TranslateForm";
-import { ColorModeToggler } from "./components/ColorModeToggler";
+import { TranslateForm } from './components/TranslateForm';
+import { ColorModeToggler } from './components/ColorModeToggler';
 import {
   Box,
   Flex,
@@ -7,23 +7,23 @@ import {
   Spacer,
   ButtonGroup,
   Button,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
+import { FC } from 'react';
 
-const App = () => {
+const App: FC = () => {
   return (
     <Box>
-      <Flex minWidth="max-content" alignItems="center" gap="2">
-        <Box p="2">
-          <Heading size="md">Translate App</Heading>
+      <Flex minWidth='max-content' alignItems='center' gap='2'>
+        <Box p='2'>
+          <Heading size='md'>Translate App</Heading>
         </Box>
         <Spacer />
-        <ButtonGroup gap="2">
-          <Button colorScheme="teal">Sign Up</Button>
-          <Button colorScheme="teal">Log in</Button>
+        <ButtonGroup>
+          <Button colorScheme='teal'>Log in</Button>
           <ColorModeToggler />
         </ButtonGroup>
       </Flex>
-      <Box mt="5">
+      <Box mt='5'>
         <TranslateForm />
       </Box>
     </Box>
