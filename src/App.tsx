@@ -10,9 +10,9 @@ import {
 } from '@chakra-ui/react';
 import { FC } from 'react';
 
-const App: FC = () => {
+export const App: FC = () => {
   return (
-    <Box>
+    <Box p={'2rem'}>
       <Flex minWidth='max-content' alignItems='center' gap='2'>
         <Box p='2'>
           <Heading size='md'>Translate App</Heading>
@@ -30,4 +30,3 @@ const App: FC = () => {
   );
 };
 
-export default App;
