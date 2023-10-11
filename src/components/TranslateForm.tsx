@@ -1,6 +1,8 @@
 import { useState, ChangeEvent, FormEvent, FC } from 'react';
-import axios, { AxiosRequestConfig } from 'axios';
-import { Input, Button, Text, Box, Spinner } from '@chakra-ui/react';
+import axios, { AxiosError } from 'axios';
+import { Input, Button, Text, Box } from '@chakra-ui/react';
+import { Spinner } from './Spinner';
+import { makeTranslationRequest } from '../api';
 
 export const TranslateForm: FC = () => {
   const [text, setText] = useState<string>('');
@@ -29,30 +31,17 @@ export const TranslateForm: FC = () => {
     const sourceLanguage = isEnglishToUkrainian ? 'en' : 'uk';
     const targetLanguage = isEnglishToUkrainian ? 'uk' : 'en';
 
-    const encodedParams = new URLSearchParams();
-
-    encodedParams.set('source_language', sourceLanguage);
-    encodedParams.set('target_language', targetLanguage);
-    encodedParams.set('text', text);
-
-    const options: AxiosRequestConfig = {
-      method: 'POST',
-      url: 'https://text-translator2.p.rapidapi.com/translate',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': '7a161dec9bmsh06dcda20021daeap1e1e75jsn2426b51b2950',
-        'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com',
-      },
-      data: encodedParams,
-    };
-
     try {
-      const { data } = await axios.request(options);
-      setTranslatedText(data.data.translatedText), setText('');
+      const translatedText = await makeTranslationRequest(
+        sourceLanguage,
+        targetLanguage,
+        text
+      );
+
+      setTranslatedText(translatedText);
+      setText('');
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setTranslatedText(error.message);
-      }
+      setText((error as AxiosError)?.message);
     } finally {
       setLoading(false);
     }
@@ -60,7 +49,7 @@ export const TranslateForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box style={{ display: 'flex', justifyContent: 'center', gap: '5px' }}>
+      <Box display={'flex'} justifyContent={'center'} gap={'5px'}>
         <Text fontSize='xl' mt='2'>
           Translation Language:
         </Text>
@@ -68,14 +57,7 @@ export const TranslateForm: FC = () => {
           {isEnglishToUkrainian ? 'UK' : 'EN'}
         </Button>
       </Box>
-      <Box
-        style={{
-          display: 'flex',
-          marginTop: '20px',
-          marginBottom: '20px',
-          gap: '10px',
-        }}
-      >
+      <Box display={'flex'} margin={'20px 0 20px 0'} gap={'10px'}>
         <Input
           placeholder={
             isEnglishToUkrainian
@@ -93,15 +75,7 @@ export const TranslateForm: FC = () => {
         </Button>
       </Box>
       {loading ? (
-        <Box style={{ display: 'flex', justifyContent: 'center' }}>
-          <Spinner
-            thickness='4px'
-            speed='0.65s'
-            emptyColor='gray.200'
-            color='teal'
-            size='xl'
-          />
-        </Box>
+        <Spinner />
       ) : (
         translatedText && (
           <Box mt='5'>
