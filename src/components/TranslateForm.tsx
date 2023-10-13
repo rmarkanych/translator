@@ -57,7 +57,7 @@ export const TranslateForm: FC = () => {
           {isEnglishToUkrainian ? 'UK' : 'EN'}
         </Button>
       </Box>
-      <Box display={'flex'} mx={0} my={5} gap={10}>
+      <Box display={'flex'} mx={0} my={5} gap={5}>
         <Input
           placeholder={
             isEnglishToUkrainian

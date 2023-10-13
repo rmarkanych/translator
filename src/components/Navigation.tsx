@@ -71,7 +71,7 @@ export const Navigation: FC = () => {
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'center'}
-        px={10}
+        px={'1rem'}
         py={0}
       >
         <Outlet />
