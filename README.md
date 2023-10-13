@@ -25,8 +25,9 @@ git clone https://github.com/rmarkanych/translator.git
 ```
 cd translator
 ```
-3. Install dependencies:
-``` 
+3. Install dependencies and run project:
+```
+npm i
 npm run dev
 ```
 ## Live Demo
