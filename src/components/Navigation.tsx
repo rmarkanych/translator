@@ -33,7 +33,7 @@ export const Navigation: FC = () => {
     <>
       <Box px={'1rem'} py={'2rem'}>
         <Flex minWidth='max-content' alignItems='center' gap='2'>
-          <Box p='2'>
+          <Box>
             <Heading size='sm'>Translate App</Heading>
           </Box>
           <Spacer />
