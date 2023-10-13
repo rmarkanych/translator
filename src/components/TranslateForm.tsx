@@ -1,8 +1,8 @@
 import { useState, ChangeEvent, FormEvent, FC } from 'react';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { Input, Button, Text, Box } from '@chakra-ui/react';
 import { Spinner } from './Spinner';
-import { makeTranslationRequest } from '../api';
+import { makeTranslationRequest } from '../services/api';
 
 export const TranslateForm: FC = () => {
   const [text, setText] = useState<string>('');
@@ -48,7 +48,7 @@ export const TranslateForm: FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form style={{width: '100%'}} onSubmit={handleSubmit}>
       <Box display={'flex'} justifyContent={'center'} gap={'5px'}>
         <Text fontSize='xl' mt='2'>
           Translation Language:
@@ -57,7 +57,7 @@ export const TranslateForm: FC = () => {
           {isEnglishToUkrainian ? 'UK' : 'EN'}
         </Button>
       </Box>
-      <Box display={'flex'} margin={'20px 0 20px 0'} gap={'10px'}>
+      <Box display={'flex'} mx={0} my={5} gap={10}>
         <Input
           placeholder={
             isEnglishToUkrainian
@@ -78,7 +78,12 @@ export const TranslateForm: FC = () => {
         <Spinner />
       ) : (
         translatedText && (
-          <Box mt='5'>
+            <Box mt='5'
+              display={'flex'}
+              flexDirection={'column'}
+              justifyContent={'center'}
+              alignItems={'center'}
+            >
             <Text fontSize='xl'>Translation:</Text>
             <Text fontSize='xl'>{translatedText}</Text>
           </Box>
